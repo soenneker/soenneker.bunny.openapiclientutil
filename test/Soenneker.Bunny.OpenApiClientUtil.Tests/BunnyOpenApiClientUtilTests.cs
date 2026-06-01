@@ -14,7 +14,6 @@ public sealed class BunnyOpenApiClientUtilTests : HostedUnitTest
     }
 
     [Test]
-    [Skip("Manual")]
     public void Default()
     {
 
