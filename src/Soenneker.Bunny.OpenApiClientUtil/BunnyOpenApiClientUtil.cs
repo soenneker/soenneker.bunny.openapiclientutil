@@ -14,7 +14,6 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Bunny.OpenApiClientUtil;
 
-///<inheritdoc cref="IBunnyOpenApiClientUtil"/>
 public sealed class BunnyOpenApiClientUtil : IBunnyOpenApiClientUtil
 {
     private readonly AsyncSingleton<BunnyOpenApiClient> _client;
@@ -26,10 +25,11 @@ public sealed class BunnyOpenApiClientUtil : IBunnyOpenApiClientUtil
             HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
 
             var apiKey = configuration.GetValueStrict<string>("Bunny:ApiKey");
-            string authHeaderValueTemplate = configuration["Bunny:AuthHeaderValueTemplate"] ?? "Bearer {token}";
+            string authHeaderName = configuration["Bunny:AuthHeaderName"] ?? "AccessKey";
+            string authHeaderValueTemplate = configuration["Bunny:AuthHeaderValueTemplate"] ?? "{token}";
             string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
 
-            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider(headerValue: authHeaderValue), httpClient: httpClient);
+            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider(authHeaderName, authHeaderValue), httpClient: httpClient);
 
             return new BunnyOpenApiClient(requestAdapter);
         });
@@ -40,18 +40,11 @@ public sealed class BunnyOpenApiClientUtil : IBunnyOpenApiClientUtil
         return _client.Get(cancellationToken);
     }
 
-    /// <summary>
-    /// Releases resources used by the current instance.
-    /// </summary>
     public void Dispose()
     {
         _client.Dispose();
     }
 
-    /// <summary>
-    /// Asynchronously releases resources used by the current instance.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     public ValueTask DisposeAsync()
     {
         return _client.DisposeAsync();
