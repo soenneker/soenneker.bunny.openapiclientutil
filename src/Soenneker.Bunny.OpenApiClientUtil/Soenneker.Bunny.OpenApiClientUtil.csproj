@@ -43,9 +43,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Kiota.GenericAuthenticationProvider" Version="4.0.40" />
-        <PackageReference Include="Soenneker.Bunny.HttpClients" Version="4.0.68" />
+        <PackageReference Include="Soenneker.Kiota.GenericAuthenticationProvider" Version="4.0.41" />
+        <PackageReference Include="Soenneker.Bunny.HttpClients" Version="4.0.69" />
         <PackageReference Include="Soenneker.Bunny.OpenApiClient" Version="4.0.60" />
-        <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="4.0.825" />
+        <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="4.0.829" />
     </ItemGroup>
 </Project>
