@@ -14,6 +14,7 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Bunny.OpenApiClientUtil;
 
+/// <inheritdoc cref="IBunnyOpenApiClientUtil" />
 public sealed class BunnyOpenApiClientUtil : IBunnyOpenApiClientUtil
 {
     private readonly AsyncSingleton<BunnyOpenApiClient> _client;
