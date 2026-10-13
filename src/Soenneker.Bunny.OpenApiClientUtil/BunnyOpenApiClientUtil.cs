@@ -25,7 +25,7 @@ public sealed class BunnyOpenApiClientUtil : IBunnyOpenApiClientUtil
         {
             HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
 
-            var apiKey = configuration.GetValueStrict<string>("Bunny:ApiKey");
+            var apiKey = configuration.GetStringStrict("Bunny:ApiKey");
             string authHeaderName = configuration["Bunny:AuthHeaderName"] ?? "AccessKey";
             string authHeaderValueTemplate = configuration["Bunny:AuthHeaderValueTemplate"] ?? "{token}";
             string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
